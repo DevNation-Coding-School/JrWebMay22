@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Manipulation</title>
+  </head>
+  <body>
+    <ul id="element">
+      <li>First Element</li>
+      <li>Second Element</li>
+      <li>Third Element</li>
+    </ul>
+
+    <h1 class="mainHeading">hello</h1>
+    <button id="clickBtn">Click Me</button>
+    <style>
+      .anything {
+        font-size: 50px;
+      }
+
+      .blueish {
+        color: blue;
+      }
+
+      .red {
+        color: red;
+      }
+    </style>
+    <script>
+      //Root Node
+      console.log(document.documentElement);
+      console.log(document.body);
+      console.log(document.head);
+
+      // Children
+      console.log(document.body.childNodes);
+      console.log(document.body.firstChild);
+      for (node of document.body.children) {
+        console.log(document.body.children);
+      }
+      //   go to body --> find the first element (child)
+      console.log(document.body.firstElementChild);
+      console.log(document.body.lastElementChild);
+
+      const childrenOfBody = Array.from(document.body.children);
+      console.log(childrenOfBody);
+
+      //   Array
+      let array = [1, 2, 3, 4];
+      // index of array : always starts from 0. array[0] = 1, array[5] = error. index out of range.
+      // length
+
+      //   Siblings
+      //   const ulTag = document.body.children[0];
+      //   console.log(ulTag);
+      //   const firstLi = ulTag.children[0];
+      //   const secondLi = ulTag.children[1];
+      //   console.log(firstLi);
+      //   console.log(secondLi);
+      //   console.log(secondLi.previousElementSibling.textContent);
+      //   firstLi.textContent = "this is the first element";
+
+      //   ID Search
+      const ulTag = document.getElementById("element");
+      console.log(ulTag);
+      ulTag.style.background = "red";
+      console.log(
+        (ulTag.children[0].textContent = "this is the first element")
+      );
+      console.log((ulTag.children[0].style.color = "white"));
+
+      // Classname Search
+      const heading = document.getElementsByClassName("mainHeading");
+      console.log(heading);
+      //   Tag Search
+      const li = document.getElementsByTagName("li");
+      for (let i = 0; i < li.length; i++) {
+        console.log((li[i].style.color = "blue"));
+      }
+      console.log(li);
+
+      const listItems = document.querySelector("ul > li:nth-child(2)");
+
+      //   Create & Remove node elements
+      const newDiv = document.createElement("div");
+      newDiv.innerHTML = `<ul id="element" class="any-class">
+        <li class="list-item">First Element</li>
+        <li class="list-item">Second Element</li>
+        <li class="list-item">Third Element</li>
+        </ul>`;
+      document.body.appendChild(newDiv);
+      const element = document.getElementById("element");
+      newDiv.setAttribute("class", "anything");
+
+      console.log(newDiv.getAttribute("class"));
+
+      // Append
+      const newText = document.createTextNode("Javascript 101");
+      //   newDiv.append(newText);
+      document.body.prepend(newDiv);
+      document.body.before(newText);
+      document.body.after(newText);
+
+      console.log(newDiv.classList.add("red"));
+      newDiv.classList.remove("red");
+
+      const button = document.getElementById("clickBtn");
+
+      function callMe(div) {
+        div.classList.toggle("red");
+      }
+
+      button.addEventListener("click", () => callMe(newDiv));
+    </script>
+  </body>
+</html>
